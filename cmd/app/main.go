@@ -1,17 +1,22 @@
 package main
 
 import (
-	"cryptolab6/pkg/esign"
-	"fmt"
+	"cryptolab6/pkg/rsa"
+	"flag"
+)
+
+var (
+	method = flag.String("m", "RSA", "Choice of a method for an e-signature ciphering")
+	text   = flag.String("txt", "ExampleText", "Text for an e-signature ciphering")
+	text2  = flag.String("rtxt", "ExampleText", "Testcase text for checking control sums")
 )
 
 func main() {
-	fmt.Println("Введите текст для шифрования:")
-	var txt string
-	fmt.Scan(&txt)
-	if esign.Sign(txt) {
-		fmt.Println("СОВПАДАЕТ")
-	} else {
-		fmt.Println("НЕ СОВПАДАЕТ")
+	flag.Parse()
+	switch *method {
+	case "RSA":
+		rsa.DoRSASigning(*text, *text2)
+	case "EG":
+
 	}
 }
